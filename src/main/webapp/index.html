@@ -1,0 +1,77 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>helloworld-rs</title>
+<style type="text/css">
+li {
+	line-height: 150%;
+	font-size: 18px
+}
+</style>
+<script type="text/javascript" src="script/jquery-1.4.4.min.js"></script>
+</head>
+<body>
+	<script type="text/javascript">
+
+		function testJsonAddBook(){
+			$(document).ready(function(){
+				$.ajax({
+					type:"POST",
+					url:"rest/json/add-book",
+					dataType: "json",
+					contentType: 'application/json',
+					data:JSON.stringify({"productName":"Java编程思想（第4版）","isbn":"9787111213826","author":"[美]埃克尔","publishDate":1183270161125}),
+					success: function(data, textStatus, jqXHR){
+			            alert("以下是从服务器返回的Book对象:\n\n" + JSON.stringify(data));
+			        },
+			        error: function(jqXHR, textStatus, errorThrown){
+			            alert('error: ' + textStatus);
+			        }
+				});
+			})
+		}
+
+
+		function testXmlAddBook(){
+			$(document).ready(function(){
+				$.ajax({
+					type:"POST",
+					url:"rest/xml/add-book",
+					dataType: "xml",
+					contentType: 'application/xml',
+					data:"<book><productName>Java编程思想（第4版） from server!</productName><author>[美]埃克尔</author><ISBN>9787111213826</ISBN><publishDate>2007-07-01T13:33:30.782+08:00</publishDate></book>",
+					success: function(data, textStatus, jqXHR){
+			            alert("以下是从服务器返回的Book对象:\n\n" + data.documentElement.outerHTML);
+			        },
+			        error: function(jqXHR, textStatus, errorThrown){
+			            alert('error: ' + textStatus);
+			        }
+				});
+			})
+		}
+	</script>
+
+	<p>
+		Choose between <em>JSON</em> or <em>XML</em>:
+	<ul>
+		<li><a href="rest/json/hello" target="_blank">json/hello</a></li>
+		<li><a href="rest/xml/hello" target="_blank">xml/hello</a></li>
+		<li><a href="rest/json/hi/jimmy" target="_blank">json/hi/jimmy</a></li>
+		<li><a href="rest/xml/hi/jimmy" target="_blank">xml/hi/jimmy</a></li>
+		<li><a href="rest/json/user" target="_blank">json/user</a></li>
+		<li><a href="rest/xml/user" target="_blank">xml/user</a></li>
+		<li><a href="rest/json/userByName/jimmy" target="_blank">json/userByName/jimmy</a></li>
+		<li><a href="rest/xml/userByName/jimmy" target="_blank">xml/userByName/jimmy</a></li>
+		<li><a href="rest/json/userByName2/jimmy" target="_blank">json/userByName2/jimmy</a></li>
+		<li><a href="rest/xml/userByName2/jimmy" target="_blank">xml/userByName2/jimmy</a></li>
+		<li><a href="rest/xml/product/iphone5S" target="_blank">xml/product/iphone5S</a></li>
+		<li><a href="rest/xml/product2/iphone5S" target="_blank">xml/product2/iphone5S</a></li>
+		<li><a href="rest/json/book/9787111213826" target="_blank">json/book/9787111213826</a></li>
+		<li><a href="rest/xml/book/9787111213826" target="_blank">xml/book/9787111213826</a></li>
+		<li><a href="#" onclick="testJsonAddBook()">json/add-book</a></li>
+		<li><a href="#" onclick="testXmlAddBook()">xml/add-book</a></li>
+	</ul>
+</body>
+</html>
