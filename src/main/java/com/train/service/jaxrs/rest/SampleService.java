@@ -1,4 +1,4 @@
-package com.train.service.rest;
+package com.train.service.jaxrs.rest;
 
 import java.util.ArrayList;
 import java.util.HashMap;
