@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC  
+    "-//Apache Software Foundation//DTD Struts Configuration 2.3//EN"  
+    "http://struts.apache.org/dtds/struts-2.3.dtd">
+
+<struts>
+    
+  <!--url 后缀设置-->	
+<constant name="struts.action.extension" value="xhtml,,xml,json,action"/>
+<!--设置mapper 针对不同的namespace 设置不同的mapper-->
+ 	<constant name="struts.mapper.class" value="org.apache.struts2.dispatcher.mapper.PrefixBasedActionMapper" />
+	<constant name="struts.mapper.prefixMapping" value="/strutsRest:rest,:struts"/>
+<!--rest 请求默认返回方式-->
+	<constant name="struts.rest.defaultExtension" value="xhtml" />
+
+<!--rest action所在namespace-->
+	<constant name="struts.rest.namespace" value="/strutsRest" />
+	
+   
+    
+
+	<!-- struts2 restful -->
+	<!-- 指定控制器类的后缀为 Controller -->
+
+	<constant name="struts.convention.action.suffix" value="Controller" />
+
+	<constant name="struts.convention.package.locators" value="action,actions,struts,struts2" />
+	<constant name="struts.convention.action.mapAllMatches" value="true" />
+	<!-- 指定 Action 所在包继承的父包 -->
+	<constant name="struts.convention.default.parent.package"
+		value="rest-default" />
+	<constant name="struts.convention.package.locators.basePackage" value=""/>
+	<constant name="struts.convention.result.path" value="/WEB-INF/rest/" />
+
+</struts>
