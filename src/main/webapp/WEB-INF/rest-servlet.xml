@@ -10,7 +10,34 @@
 	<context:component-scan base-package="com.train.service.springmvc.rest.controller" />
 	<!-- To enable @RequestMapping process on type level and method level -->
 	<bean class="org.springframework.web.servlet.mvc.annotation.DefaultAnnotationHandlerMapping" />
-	<bean class="org.springframework.web.servlet.mvc.annotation.AnnotationMethodHandlerAdapter" />
+	  <bean class="org.springframework.web.servlet.mvc.annotation.AnnotationMethodHandlerAdapter">
+        <!--
+            NOTE: it is important to specify the order property, so this
+            adapter will be attempted before the HandlerAdapter that
+            Spring MVC automatically configures. This is because a
+            MappingJacksonHttpMessageConverter is registered
+            automatically with the default adapter that will attempt to
+            handle any Java object including BufferedImage.
+        -->
+        <property name="order" value="1" />
+        <property name="messageConverters">
+            <list>
+                <!-- Default converters -->
+                <bean class="org.springframework.http.converter.StringHttpMessageConverter"/>
+                <bean class="org.springframework.http.converter.FormHttpMessageConverter"/>
+                <bean class="org.springframework.http.converter.ByteArrayHttpMessageConverter"/>
+                <bean class="org.springframework.http.converter.xml.SourceHttpMessageConverter"/>
+                
+                <!-- Converter for images -->
+                <bean class="org.springframework.http.converter.BufferedImageHttpMessageConverter"/>
+                <bean class="org.springframework.http.converter.ResourceHttpMessageConverter"/>
+                
+                <!-- This must come after our image converter -->
+                <bean class="org.springframework.http.converter.xml.Jaxb2RootElementHttpMessageConverter"/>
+                <bean class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter"/>
+            </list>
+        </property>
+    </bean>
 
 	<bean id="jaxbMarshaller" class="org.springframework.oxm.jaxb.Jaxb2Marshaller">
 		<property name="classesToBeBound">
@@ -29,7 +56,7 @@
 	<bean class="org.springframework.web.servlet.view.ContentNegotiatingViewResolver">
 		
 		<!-- 设置为true以忽略对Accept Header的支持 -->
-		<property name="ignoreAcceptHeader" value="true" />
+		<property name="ignoreAcceptHeader" value="false" />
 		
 		<!-- 在没有扩展名时即: "/employee/1" 时的默认展现形式 -->
 		<property name="defaultContentType" value="text/html" />
@@ -84,4 +111,6 @@
 		<property name="employeeDS" ref="employeeDS" />
 		<property name="jaxb2Mashaller" ref="jaxbMarshaller" />
 	</bean>
+	 <bean id="handlerMapping" class="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping" />
+    
 </beans>
