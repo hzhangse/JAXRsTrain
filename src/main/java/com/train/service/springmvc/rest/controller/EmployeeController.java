@@ -7,18 +7,18 @@ import javax.xml.transform.Source;
 import javax.xml.transform.stream.StreamSource;
 
 import org.springframework.oxm.jaxb.Jaxb2Marshaller;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.train.service.model.Employee;
 import com.train.service.model.EmployeeList;
 import com.train.service.springmvc.rest.ds.EmployeeDS;
 
-@Controller
+@RestController
 public class EmployeeController {
 
 	private EmployeeDS employeeDS;
